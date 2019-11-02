@@ -1,2 +1,2 @@
-# math3618-he1
+# math3618-hw1
 turninhw
