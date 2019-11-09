@@ -1,0 +1,38 @@
+---
+title: "turn_in hw 2"
+author: "Siyuan Zhang & Jiayi Zhou"
+date: "11/9/2019"
+output: html_document
+---
+
+```{r}
+# Calculate monthly effective rate by using annual effective rate. And then using number of period , present value, and monthly effective interest rate to calculate monthly payment size. At last, building an amortization table.
+
+# Calculating monthly effective interest rate
+annual_rate <- 0.03
+monthly_rate <- (1+annual_rate)^(1/12)-1
+
+# caluculating payment size
+number_of_periods <- 10
+L <- 200000
+payment_size <- L*monthly_rate/(1-(monthly_rate+1)^(-number_of_periods))
+
+
+# building an amortization table
+table_row1 <- c(0,0,L)
+amortization_table <- matrix(0,1+number_of_periods,3)
+amortization_table[1,]<-table_row1
+ for (time in 1:number_of_periods) {
+  interest_paid <- amortization_table[time,3]*monthly_rate
+  principal_repaid <- payment_size -interest_paid
+  L <- amortization_table[time,3] - principal_repaid
+  amortization_table[time+1,] <- c(interest_paid, principal_repaid, L)
+ }
+#  label the rows and columns of the matrix appropriately
+rownames(amortization_table) <- c("start", 1:number_of_periods)
+colnames(amortization_table) <- c("interest paid", "principal repaid", "outstanding balance")
+
+amortization_table
+
+
+```
