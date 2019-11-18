@@ -13,7 +13,8 @@ annual_rate <- 0.03
 monthly_rate <- (1+annual_rate)^(1/12)-1
 
 # caluculating payment size
-number_of_periods <- 10
+n <- 10
+number_of_periods <- n*12
 L <- 200000
 payment_size <- L*monthly_rate/(1-(monthly_rate+1)^(-number_of_periods))
 
